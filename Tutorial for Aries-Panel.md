@@ -80,25 +80,44 @@ Select **Tools -> Port -> COM\* (ARIES Board)**
 ---
 
 ### 2) 80x40 Panel:
+<table>
+<tr>
 
-| HUB75 Pin | Aries Pin |
-|-----------|-----------|
-| R0        | GPIO3     |
-| G0        | GPIO4     |
-| B0        | GPIO5     |
-| R1        | GPIO6     |
-| G1        | GPIO7     |
-| B1        | GPIO8     |
-| CLK       | GPIO14    |
-| LAT       | GPIO15    |
-| OE        | GPIO16    |
-| A         | GPIO10    |
-| B         | GPIO11    |
-| C         | GPIO12    |
-| D         | GPIO13    |
-| E         | GPIO9     |
+<td valign="top">
+
+<table>
+<tr>
+<th>HUB75 Pin</th>
+<th>Aries Pin</th>
+</tr>
+
+<tr><td>R0</td><td>GPIO3</td></tr>
+<tr><td>G0</td><td>GPIO4</td></tr>
+<tr><td>B0</td><td>GPIO5</td></tr>
+<tr><td>R1</td><td>GPIO6</td></tr>
+<tr><td>G1</td><td>GPIO7</td></tr>
+<tr><td>B1</td><td>GPIO8</td></tr>
+<tr><td>CLK</td><td>GPIO14</td></tr>
+<tr><td>LAT</td><td>GPIO15</td></tr>
+<tr><td>OE</td><td>GPIO16</td></tr>
+<tr><td>A</td><td>GPIO10</td></tr>
+<tr><td>B</td><td>GPIO11</td></tr>
+<tr><td>C</td><td>GPIO12</td></tr>
+<tr><td>D</td><td>GPIO13</td></tr>
+<tr><td>E</td><td>GPIO9</td></tr>
+
+</table>
+
+</td>
+
+<td valign="top">
 
 <img width="503" height="673" alt="image" src="https://github.com/user-attachments/assets/361cc5c4-57f6-44da-91cb-c2c3f3b2b76b" />
+
+</td>
+
+</tr>
+</table>
 
 ---
 
@@ -126,16 +145,35 @@ AriesDrawString(display,1,0,"HELLO",1,1,0);
 ---
 
 ## Aries-Monochrome P10 Connections:
+<table>
+<tr>
 
-| P10 Panel | Aries Pin |
-|-----------|-----------|
-| OE/EN     | GPIO9     |
-| A         | GPIO6     |
-| B         | GPIO7     |
-| CLK       | SCLK      |
-| Lat/SCLK  | GPIO8     |
-| Data      | MOSI      |
+<td valign="top">
+
+<table>
+<tr>
+<th>P10 Panel</th>
+<th>Aries Pin</th>
+</tr>
+
+<tr><td>OE/EN</td><td>GPIO9</td></tr>
+<tr><td>A</td><td>GPIO6</td></tr>
+<tr><td>B</td><td>GPIO7</td></tr>
+<tr><td>CLK</td><td>SCLK</td></tr>
+<tr><td>Lat/SCLK</td><td>GPIO8</td></tr>
+<tr><td>Data</td><td>MOSI</td></tr>
+
+</table>
+
+</td>
+
+<td valign="top">
 
 <img width="486" height="667" alt="image" src="https://github.com/user-attachments/assets/22131709-f7d9-4a65-bc8b-a7cb2a42befd" />
+
+</td>
+
+</tr>
+</table>
 
 ---
