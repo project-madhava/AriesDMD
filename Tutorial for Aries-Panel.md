@@ -43,7 +43,9 @@ Select **Tools -> Port -> COM\* (ARIES Board)**
 ## Aries-RGB Panel Connections : (Used in given examples)
 
 ### 1) 32x16 Panel:
-
+<table>
+<tr>
+<td>
 | HUB75 Pin | Aries Pin |
 |-----------|-----------|
 | R1        | GPIO3     |
@@ -58,9 +60,12 @@ Select **Tools -> Port -> COM\* (ARIES Board)**
 | A         | GPIO12    |
 | B         | GPIO13    |
 | C         | GPIO14    |
-
+</td>
+<td>
 <img width="594" height="764" alt="image" src="https://github.com/user-attachments/assets/34f9d9e6-a49e-4df3-b4c9-80233f6dc7fa" />
-
+</td>
+</tr>
+</table>
 ---
 
 ### 2) 80x40 Panel:
