@@ -1,8 +1,8 @@
 #include <AriesRGB.h>
 
 AriesRGB panel(
-    3, 4, 5, // R1 G1 B1
-    6, 7, 8, // R2 G2 B2 
+    3, 4, 5, // R0 G0 B0
+    6, 7, 8, // R1 G1 B1 
     14, 15, 16, //CLK LAT OE 
     10, 11, 12, 13, 9, // A B C D E 
     2,   // panelsWide
