@@ -72,6 +72,3 @@ Most existing LED matrix libraries were written for AVR-based Arduino boards lik
 - Creates: 128 × 16 display 
 
 ---
-
-For detailed instructions on Arduino IDE setup, library installation, and panel pinout connections, refer to the following document:
-
