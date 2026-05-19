@@ -1,7 +1,7 @@
 #include "AriesDMD.h"
 #include "AriesFont5x7.h"
 
-AriesDMD dmd(2, 1, 8, 6, 7, 5);   // 2 panels wide, 1 panel high, OE, A, B, Lat
+AriesDMD dmd(2, 1, 9, 6, 7, 8);   // 2 panels wide, 1 panel high, OE, A, B, Lat
 // Clk --> SPI2_SCLK
 // Data --> SPI2_MOSI
 // GND --> GND
