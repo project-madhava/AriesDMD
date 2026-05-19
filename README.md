@@ -75,4 +75,3 @@ Most existing LED matrix libraries were written for AVR-based Arduino boards lik
 
 For detailed instructions on Arduino IDE setup, library installation, and panel pinout connections, refer to the following document:
 
-[View PDF](https://github.com/project-madhava/AriesDMD/blob/main/Tutorial%20for%20Aries-Panel.pdf)
