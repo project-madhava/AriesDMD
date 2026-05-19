@@ -6,6 +6,8 @@
 **Status:** Stable / Actively Maintained  
 ---
 
+<img width="4160" height="1553" alt="WhatsApp Image 2026-05-19 at 2 49 28 PM" src="https://github.com/user-attachments/assets/1de92896-8314-4caf-8864-0078f18bb237" />
+
 # 🚀 Overview
 
 AriesDMD is a modular display driver library designed specifically for P10 and HUB75 LED matrix panels on RISC-V based Vega Aries V3 boards.
