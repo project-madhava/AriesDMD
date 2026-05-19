@@ -1,8 +1,8 @@
 /*
  * WIRING
  * ──────
- *   GPIO  3  → R1     GPIO  4  → G1     GPIO  5  → B1    
- *   GPIO  6  → R2     GPIO  7  → G2     GPIO  8  → B2    
+ *   GPIO  3  → R0     GPIO  4  → G0     GPIO  5  → B0    
+ *   GPIO  6  → R1     GPIO  7  → G1     GPIO  8  → B1    
  *   GPIO 14  → CLK    GPIO 15  → STB    GPIO 16  → OE
  *   GPIO 10  → A      GPIO 11  → B      GPIO 12  → C
  *   GPIO 13  → D      GPIO  9  → E
