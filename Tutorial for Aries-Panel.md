@@ -45,25 +45,36 @@ Select **Tools -> Port -> COM\* (ARIES Board)**
 ### 1) 32x16 Panel:
 <table>
 <tr>
-<td>
-| HUB75 Pin | Aries Pin |
-|-----------|-----------|
-| R1        | GPIO3     |
-| G1        | GPIO4     |
-| B1        | GPIO5     |
-| R2        | GPIO6     |
-| G2        | GPIO7     |
-| B2        | GPIO8     |
-| CLK       | GPIO9     |
-| LAT       | GPIO10    |
-| OE        | GPIO11    |
-| A         | GPIO12    |
-| B         | GPIO13    |
-| C         | GPIO14    |
+
+<td valign="top">
+
+<table>
+<tr>
+<th>HUB75 Pin</th>
+<th>Aries Pin</th>
+</tr>
+
+<tr><td>R1</td><td>GPIO3</td></tr>
+<tr><td>G1</td><td>GPIO4</td></tr>
+<tr><td>B1</td><td>GPIO5</td></tr>
+<tr><td>R2</td><td>GPIO6</td></tr>
+<tr><td>G2</td><td>GPIO7</td></tr>
+<tr><td>B2</td><td>GPIO8</td></tr>
+<tr><td>CLK</td><td>GPIO9</td></tr>
+<tr><td>LAT</td><td>GPIO10</td></tr>
+<tr><td>OE</td><td>GPIO11</td></tr>
+<tr><td>A</td><td>GPIO12</td></tr>
+<tr><td>B</td><td>GPIO13</td></tr>
+<tr><td>C</td><td>GPIO14</td></tr>
+
+</table>
+
 </td>
-<td>
+
+<td valign="top">
 <img width="594" height="764" alt="image" src="https://github.com/user-attachments/assets/34f9d9e6-a49e-4df3-b4c9-80233f6dc7fa" />
 </td>
+
 </tr>
 </table>
 ---
