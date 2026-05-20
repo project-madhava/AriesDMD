@@ -1,5 +1,5 @@
-#include "AriesFont5x7.h"
 #include "AriesDMD.h"
+#include "AriesFont5x7.h"
 
 #include <avr/pgmspace.h>
 
