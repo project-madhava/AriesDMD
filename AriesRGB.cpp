@@ -6,33 +6,73 @@ AriesRGB::AriesRGB(
     uint8_t r1, uint8_t g1, uint8_t b1,
     uint8_t r2, uint8_t g2, uint8_t b2,
     uint8_t clk, uint8_t lat, uint8_t oe,
-    uint8_t a, uint8_t b, uint8_t c, uint8_t d, uint8_t e,
+    uint8_t a, uint8_t b, uint8_t c,
+    uint8_t d, uint8_t e,
     uint8_t pw, uint8_t ph)
 {
-    panelsWide  = constrain(pw, 1, MAX_PANELS_X);
-    panelsHigh  = constrain(ph, 1, MAX_PANELS_Y);
+    panelsWide  = pw;
+    panelsHigh  = ph;
 
     totalWidth  = panelsWide  * PANEL_WIDTH;
-    totalHeight = panelsHigh  * PANEL_HEIGHT;
+    totalHeight = panelsHigh * PANEL_HEIGHT;
 
-    PIN_R1 = r1; PIN_G1 = g1; PIN_B1 = b1;
-    PIN_R2 = r2; PIN_G2 = g2; PIN_B2 = b2;
-    PIN_CLK = clk; PIN_LAT = lat; PIN_OE = oe;
-    PIN_A = a; PIN_B = b; PIN_C = c; PIN_D = d; PIN_E = e;
+    PIN_R1 = r1;
+    PIN_G1 = g1;
+    PIN_B1 = b1;
+
+    PIN_R2 = r2;
+    PIN_G2 = g2;
+    PIN_B2 = b2;
+
+    PIN_CLK = clk;
+    PIN_LAT = lat;
+    PIN_OE  = oe;
+
+    PIN_A = a;
+    PIN_B = b;
+    PIN_C = c;
+    PIN_D = d;
+    PIN_E = e;
 
     scanRow = 0;
 
-    memset(framebuffer, 0, sizeof(framebuffer));
+    uint32_t bufferSize =
+        totalWidth *
+        totalHeight *
+        3;
+
+    framebuffer =
+        (uint8_t*)malloc(bufferSize);
+
+    if (!framebuffer)
+    {
+        while (1);
+    }
+
+    memset(framebuffer, 0, bufferSize);
+}
+
+AriesRGB::~AriesRGB()
+{
+    if (framebuffer)
+    {
+        free(framebuffer);
+    }
 }
 
 void AriesRGB::begin()
 {
-    pinMode(PIN_R1, OUTPUT); pinMode(PIN_G1, OUTPUT); pinMode(PIN_B1, OUTPUT);
-    pinMode(PIN_R2, OUTPUT); pinMode(PIN_G2, OUTPUT); pinMode(PIN_B2, OUTPUT);
+    pinMode(PIN_R1, OUTPUT);
+    pinMode(PIN_G1, OUTPUT);
+    pinMode(PIN_B1, OUTPUT);
+
+    pinMode(PIN_R2, OUTPUT);
+    pinMode(PIN_G2, OUTPUT);
+    pinMode(PIN_B2, OUTPUT);
 
     pinMode(PIN_CLK, OUTPUT);
     pinMode(PIN_LAT, OUTPUT);
-    pinMode(PIN_OE,  OUTPUT);
+    pinMode(PIN_OE, OUTPUT);
 
     pinMode(PIN_A, OUTPUT);
     pinMode(PIN_B, OUTPUT);
@@ -65,24 +105,33 @@ void AriesRGB::initDriver()
 
 void AriesRGB::clear()
 {
-    memset(framebuffer, 0, sizeof(framebuffer));
+    memset(
+        framebuffer,
+        0,
+        totalWidth * totalHeight * 3
+    );
 }
 
-void AriesRGB::drawPixel(int x, int y, uint8_t r, uint8_t g, uint8_t b)
+void AriesRGB::drawPixel(
+    int x,
+    int y,
+    uint8_t r,
+    uint8_t g,
+    uint8_t b)
 {
     if (x < 0 || x >= totalWidth) return;
     if (y < 0 || y >= totalHeight) return;
 
-    framebuffer[y][x][0] = r;
-    framebuffer[y][x][1] = g;
-    framebuffer[y][x][2] = b;
+    framebuffer[pixelIndex(x,y,0)] = r;
+    framebuffer[pixelIndex(x,y,1)] = g;
+    framebuffer[pixelIndex(x,y,2)] = b;
 }
 
 void AriesRGB::refresh()
 {
     digitalWrite(PIN_OE, HIGH);
 
-    digitalWrite(PIN_A,  scanRow & 1);
+    digitalWrite(PIN_A, scanRow & 1);
     digitalWrite(PIN_B, (scanRow >> 1) & 1);
     digitalWrite(PIN_C, (scanRow >> 2) & 1);
     digitalWrite(PIN_D, (scanRow >> 3) & 1);
@@ -101,13 +150,35 @@ void AriesRGB::refresh()
             {
                 int x = x0 + col;
 
-                digitalWrite(PIN_R1, framebuffer[y1][x][0]);
-                digitalWrite(PIN_G1, framebuffer[y1][x][1]);
-                digitalWrite(PIN_B1, framebuffer[y1][x][2]);
+                digitalWrite(
+                    PIN_R1,
+                    framebuffer[pixelIndex(x,y1,0)]
+                );
 
-                digitalWrite(PIN_R2, framebuffer[y2][x][0]);
-                digitalWrite(PIN_G2, framebuffer[y2][x][1]);
-                digitalWrite(PIN_B2, framebuffer[y2][x][2]);
+                digitalWrite(
+                    PIN_G1,
+                    framebuffer[pixelIndex(x,y1,1)]
+                );
+
+                digitalWrite(
+                    PIN_B1,
+                    framebuffer[pixelIndex(x,y1,2)]
+                );
+
+                digitalWrite(
+                    PIN_R2,
+                    framebuffer[pixelIndex(x,y2,0)]
+                );
+
+                digitalWrite(
+                    PIN_G2,
+                    framebuffer[pixelIndex(x,y2,1)]
+                );
+
+                digitalWrite(
+                    PIN_B2,
+                    framebuffer[pixelIndex(x,y2,2)]
+                );
 
                 digitalWrite(PIN_CLK, HIGH);
                 digitalWrite(PIN_CLK, LOW);
@@ -138,7 +209,10 @@ void AriesRGB::setCursor(int x, int y)
     cursor_y = y;
 }
 
-void AriesRGB::setTextColor(uint8_t r, uint8_t g, uint8_t b)
+void AriesRGB::setTextColor(
+    uint8_t r,
+    uint8_t g,
+    uint8_t b)
 {
     text_r = r;
     text_g = g;
@@ -171,19 +245,28 @@ void AriesRGB::print(const char* str)
 
         for (uint8_t i = 0; i < w; i++)
         {
-            uint8_t col = font.getColumn(c, i);
+            uint8_t col =
+                font.getColumn(c, i);
 
             for (uint8_t j = 0; j < h; j++)
             {
                 if (col & (1 << j))
                 {
-                    for (uint8_t sx = 0; sx < text_size; sx++)
+                    for (uint8_t sx = 0;
+                        sx < text_size;
+                        sx++)
                     {
-                        for (uint8_t sy = 0; sy < text_size; sy++)
+                        for (uint8_t sy = 0;
+                            sy < text_size;
+                            sy++)
                         {
                             drawPixel(
-                                cursor_x + i * text_size + sx,
-                                cursor_y + j * text_size + sy,
+                                cursor_x +
+                                i * text_size + sx,
+
+                                cursor_y +
+                                j * text_size + sy,
+
                                 text_r,
                                 text_g,
                                 text_b
@@ -194,6 +277,7 @@ void AriesRGB::print(const char* str)
             }
         }
 
-        cursor_x += (w + 1) * text_size;
+        cursor_x +=
+            (w + 1) * text_size;
     }
 }
