@@ -6,6 +6,14 @@
 #define ARIES_FONT_HEIGHT  7
 #define ARIES_FONT_FIRST   32
 
+#ifndef GRAPHICS_NORMAL
+#define GRAPHICS_NORMAL 0
+#endif
+
+#ifndef GRAPHICS_INVERT
+#define GRAPHICS_INVERT 1
+#endif
+
 extern const uint8_t System5x7[];
 
 class AriesDMD;
