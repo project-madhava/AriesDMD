@@ -7,17 +7,10 @@
 #define PANEL_WIDTH  80
 #define PANEL_HEIGHT 40
 
-#ifndef MAX_PANELS_X
-  #define MAX_PANELS_X 20
-#endif
-
-#ifndef MAX_PANELS_Y
-  #define MAX_PANELS_Y 5
-#endif
-
 class AriesRGB
 {
 public:
+
     AriesRGB(
         uint8_t r1, uint8_t g1, uint8_t b1,
         uint8_t r2, uint8_t g2, uint8_t b2,
@@ -28,22 +21,42 @@ public:
         uint8_t panelsHigh = 1
     );
 
+    ~AriesRGB();
+
     void begin();
+
     void clear();
-    void drawPixel(int x, int y, uint8_t r, uint8_t g, uint8_t b);
+
+    void drawPixel(
+        int x,
+        int y,
+        uint8_t r,
+        uint8_t g,
+        uint8_t b
+    );
+
     void refresh();
 
     uint16_t width()  const { return totalWidth;  }
     uint16_t height() const { return totalHeight; }
 
-    // TEXT SYSTEM 
+    // TEXT
     void setCursor(int x, int y);
-    void setTextColor(uint8_t r, uint8_t g, uint8_t b);
+
+    void setTextColor(
+        uint8_t r,
+        uint8_t g,
+        uint8_t b
+    );
+
     void setTextSize(uint8_t s);
+
     void setFont(const uint8_t* f);
+
     void print(const char* str);
 
 private:
+
     uint8_t panelsWide;
     uint8_t panelsHigh;
 
@@ -52,21 +65,43 @@ private:
 
     uint8_t PIN_R1, PIN_G1, PIN_B1;
     uint8_t PIN_R2, PIN_G2, PIN_B2;
-    uint8_t PIN_CLK, PIN_LAT, PIN_OE;
-    uint8_t PIN_A, PIN_B, PIN_C, PIN_D, PIN_E;
 
-    uint8_t framebuffer[MAX_PANELS_Y * PANEL_HEIGHT]
-                        [MAX_PANELS_X * PANEL_WIDTH][3];
+    uint8_t PIN_CLK;
+    uint8_t PIN_LAT;
+    uint8_t PIN_OE;
+
+    uint8_t PIN_A;
+    uint8_t PIN_B;
+    uint8_t PIN_C;
+    uint8_t PIN_D;
+    uint8_t PIN_E;
+
+    // DYNAMIC FRAMEBUFFER
+    uint8_t* framebuffer;
 
     uint8_t scanRow;
 
     void initDriver();
 
+    inline uint32_t pixelIndex(
+        int x,
+        int y,
+        int color
+    ) const
+    {
+        return ((y * totalWidth) + x) * 3 + color;
+    }
+
     // TEXT
     int cursor_x = 0;
     int cursor_y = 0;
-    uint8_t text_r = 1, text_g = 1, text_b = 1;
+
+    uint8_t text_r = 1;
+    uint8_t text_g = 1;
+    uint8_t text_b = 1;
+
     uint8_t text_size = 1;
+
     AriesRGBFont font;
 };
 
