@@ -1,4 +1,3 @@
-#pragma once
 #include <Arduino.h>
 
 //  Vertical-panel text rendering for AriesRGB_32x16.
