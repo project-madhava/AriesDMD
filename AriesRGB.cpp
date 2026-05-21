@@ -1,5 +1,7 @@
 #include "AriesRGB.h"
 
+extern const uint8_t System5x7[];
+
 AriesRGB::AriesRGB(
     uint8_t r1, uint8_t g1, uint8_t b1,
     uint8_t r2, uint8_t g2, uint8_t b2,
@@ -19,6 +21,7 @@ AriesRGB::AriesRGB(
     PIN_A = a; PIN_B = b; PIN_C = c; PIN_D = d; PIN_E = e;
 
     scanRow = 0;
+
     memset(framebuffer, 0, sizeof(framebuffer));
 }
 
@@ -26,14 +29,22 @@ void AriesRGB::begin()
 {
     pinMode(PIN_R1, OUTPUT); pinMode(PIN_G1, OUTPUT); pinMode(PIN_B1, OUTPUT);
     pinMode(PIN_R2, OUTPUT); pinMode(PIN_G2, OUTPUT); pinMode(PIN_B2, OUTPUT);
+
     pinMode(PIN_CLK, OUTPUT);
     pinMode(PIN_LAT, OUTPUT);
     pinMode(PIN_OE,  OUTPUT);
-    pinMode(PIN_A, OUTPUT); pinMode(PIN_B, OUTPUT); pinMode(PIN_C, OUTPUT);
-    pinMode(PIN_D, OUTPUT); pinMode(PIN_E, OUTPUT);
+
+    pinMode(PIN_A, OUTPUT);
+    pinMode(PIN_B, OUTPUT);
+    pinMode(PIN_C, OUTPUT);
+    pinMode(PIN_D, OUTPUT);
+    pinMode(PIN_E, OUTPUT);
 
     clear();
+
     initDriver();
+
+    font.setFont(System5x7);
 }
 
 void AriesRGB::initDriver()
@@ -48,6 +59,7 @@ void AriesRGB::initDriver()
 
     digitalWrite(PIN_LAT, HIGH);
     digitalWrite(PIN_LAT, LOW);
+
     digitalWrite(PIN_OE, LOW);
 }
 
@@ -76,13 +88,11 @@ void AriesRGB::refresh()
     digitalWrite(PIN_D, (scanRow >> 3) & 1);
     digitalWrite(PIN_E, (scanRow >> 4) & 1);
 
-    // iterate vertically stacked panels
     for (int py = 0; py < panelsHigh; py++)
     {
         int y1 = py * PANEL_HEIGHT + scanRow;
         int y2 = y1 + 20;
 
-        // horizontal panels
         for (int p = 0; p < panelsWide; p++)
         {
             int x0 = p * PANEL_WIDTH;
@@ -109,30 +119,39 @@ void AriesRGB::refresh()
     digitalWrite(PIN_LAT, LOW);
 
     digitalWrite(PIN_OE, LOW);
+
     delayMicroseconds(50);
+
     digitalWrite(PIN_OE, HIGH);
 
-    if (++scanRow >= 20) scanRow = 0;
+    if (++scanRow >= 20)
+    {
+        scanRow = 0;
+    }
 }
 
 // ================= TEXT =================
 
-void AriesRGB::setCursor(int x, int y) {
+void AriesRGB::setCursor(int x, int y)
+{
     cursor_x = x;
     cursor_y = y;
 }
 
-void AriesRGB::setTextColor(uint8_t r, uint8_t g, uint8_t b) {
+void AriesRGB::setTextColor(uint8_t r, uint8_t g, uint8_t b)
+{
     text_r = r;
     text_g = g;
     text_b = b;
 }
 
-void AriesRGB::setTextSize(uint8_t s) {
+void AriesRGB::setTextSize(uint8_t s)
+{
     text_size = s;
 }
 
-void AriesRGB::setFont(const uint8_t* f) {
+void AriesRGB::setFont(const uint8_t* f)
+{
     font.setFont(f);
 }
 
@@ -142,7 +161,10 @@ void AriesRGB::print(const char* str)
     {
         char c = *str++;
 
-        if (!font.isCharValid(c)) continue;
+        if (!font.isCharValid(c))
+        {
+            continue;
+        }
 
         uint8_t w = font.getCharWidth(c);
         uint8_t h = font.getHeight();
@@ -162,7 +184,9 @@ void AriesRGB::print(const char* str)
                             drawPixel(
                                 cursor_x + i * text_size + sx,
                                 cursor_y + j * text_size + sy,
-                                text_r, text_g, text_b
+                                text_r,
+                                text_g,
+                                text_b
                             );
                         }
                     }
