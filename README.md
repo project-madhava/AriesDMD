@@ -87,7 +87,7 @@ https://gitlab.com/riscv-vega/vega-arduino/-/raw/main/package_vega_index.json
 
 Open **Tools->Boards->Board manager**, Search for "vega"
 
-Install "VEGA ARIES Boards" with latest version
+Install "VEGA ARIES Boards" with latest version from the link provided
 
 Select **Tools->Board->VEGA Processor: ARIES Boards->ARIES v3**
 <img width="858" height="568" alt="image" src="https://github.com/user-attachments/assets/aa2728a0-ffed-43e1-824b-e92c959bfcae" />
