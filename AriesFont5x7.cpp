@@ -1,9 +1,6 @@
 #include "AriesDMD.h"
 #include "AriesFont5x7.h"
-
-#include <avr/pgmspace.h>
-
-#define FONT_HEADER_SIZE 6
+#include "AriesRGB_Font5x7.h"
 
 void AriesDrawChar(
     AriesDMD& dmd,
@@ -25,7 +22,7 @@ void AriesDrawChar(
         c - ARIES_FONT_FIRST;
 
     uint16_t glyphIndex =
-        FONT_HEADER_SIZE +
+        5 +
         (charIndex * ARIES_FONT_WIDTH);
 
     for(uint8_t col = 0;
