@@ -76,7 +76,7 @@ Most existing LED matrix libraries were written for AVR-based Arduino boards lik
 
 # Setting up VEGA Ecosystem on Arduino IDE
 
-Open Arduino IDE
+Open Arduino IDE / Download and install Arduino IDE 1.8.19
 
 Open **File->Preferences**, Add below JSON in "Additional Boards Manager URL", Press OK
 
@@ -202,9 +202,10 @@ Select **Tools -> Port -> COM\* (ARIES Board)**
 RGB library supports 8 basic colors using ON/OFF RGB channels.
 
 ```
-AriesDrawString(display,1,0,"HELLO",1,1,0);
-                                    ↑
-                          Change color from here
+Format:  AriesDrawString(display,1,0,"HELLO",R,G,B);
+Example: AriesDrawString(display,1,0,"HELLO",1,1,0);
+                                               ↑
+                                  Change color from here
 ```
 
 | R | G | B | Color   |
