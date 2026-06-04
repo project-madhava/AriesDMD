@@ -10,8 +10,10 @@ void AriesDrawPixelVert(
 {
     int logWidth = (display.width() / 32) * 16;
     int logHeight = (display.height() / 16) * 32;
+    
+    while(lx < 0) lx += logWidth;
+    lx = lx % logWidth;
 
-    if (lx < 0 || lx >= logWidth) return;
     if (ly < 0 || ly >= logHeight) return;
 
     int maxCol = (logWidth / 16) - 1;
@@ -22,7 +24,7 @@ void AriesDrawPixelVert(
     int localX = lx % 16;
     int localY = ly % 32;
 
-    int px = (panelCol * 32) + localY;
+    int px = (panelCol * 32) + (31 - localY);
     int py = (panelRow * 16) + (15 - localX);
 
     display.drawPixel(px, py, r, g, b);
@@ -47,7 +49,11 @@ void AriesDrawCharVert(
         {
             if(line & (1 << row))
             {
-                AriesDrawPixelVert(display, x + col, y + row, r, g, b);
+                // UN-MIRROR X, KEEP Y UPRIGHT
+                int drawX = x + col;
+                int drawY = y + (ARIES_FONT_HEIGHT - 1 - row);
+                
+                AriesDrawPixelVert(display, drawX, drawY, r, g, b);
             }
         }
     }
