@@ -1,3 +1,4 @@
+
 #include "AriesRGB_Font5x7_VertScaled.h"
 #include "AriesRGB_Font5x7.h"
 #include "AriesRGB_Font5x7_Vert.h"
@@ -26,6 +27,7 @@ void AriesDrawCharVertScaled(
                 {
                     for(int sy = 0; sy < scale; sy++)
                     {
+                        // UN-MIRROR X, KEEP Y UPRIGHT
                         int normalCol = col;
                         int invertedRow = (ARIES_FONT_HEIGHT - 1 - row);
 
