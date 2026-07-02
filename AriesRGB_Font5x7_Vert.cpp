@@ -1,8 +1,12 @@
+
 #include "AriesRGB_Font5x7_Vert.h"
 #include "AriesRGB_32x16.h"
 #include "AriesRGB_Font5x7.h"
 #include <avr/pgmspace.h>
 
+// =======================================================
+// THE CYLINDER MAPPING - 100% UNTOUCHED
+// =======================================================
 void AriesDrawPixelVert(
     AriesRGB_32x16& display,
     int lx, int ly,
@@ -10,7 +14,8 @@ void AriesDrawPixelVert(
 {
     int logWidth = (display.width() / 32) * 16;
     int logHeight = (display.height() / 16) * 32;
-    
+
+    // Seamless horizontal wrap-around
     while(lx < 0) lx += logWidth;
     lx = lx % logWidth;
 
@@ -32,6 +37,9 @@ void AriesDrawPixelVert(
 
 #define FONT_HEADER_SIZE 6
 
+// =======================================================
+// FONT RENDERING
+// =======================================================
 void AriesDrawCharVert(
     AriesRGB_32x16& display,
     int x, int y, char c,
@@ -69,5 +77,41 @@ void AriesDrawStringVert(
         AriesDrawCharVert(display, x, y, *str, r, g, b);
         x += (ARIES_FONT_WIDTH + 1);
         str++;
+    }
+}
+
+// =======================================================
+// IMAGE RENDERING: 8-Color (3-bit) Bitmap Support
+// Format: 1 byte per pixel -> 0b00000RGB
+// =======================================================
+void AriesDrawBitmapVert(
+    AriesRGB_32x16& display,
+    int x, int y,
+    const uint8_t *bitmap,
+    int w, int h)
+{
+    int byteIndex = 0;
+    
+    // Loop through every row of the image
+    for(int j = 0; j < h; j++) 
+    {
+        // Loop through every column of the image
+        for(int i = 0; i < w; i++) 
+        {
+            uint8_t pixel = bitmap[byteIndex++];
+            
+            // Extract the RGB bits from the byte
+            bool r = (pixel >> 2) & 0x01; // Bit 2
+            bool g = (pixel >> 1) & 0x01; // Bit 1
+            bool b = (pixel >> 0) & 0x01; // Bit 0
+            
+            // Only draw the pixel if it is NOT completely black (0,0,0)
+            // This creates natural transparency around logos!
+            if (r || g || b) 
+            {
+                // Push it through the cylinder mapping engine
+                AriesDrawPixelVert(display, x + i, y + j, r, g, b);
+            }
+        }
     }
 }
